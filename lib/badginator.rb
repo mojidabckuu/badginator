@@ -83,4 +83,6 @@ class Badginator
         rails TypeError, "Cannot convert #{status_code} to Status"
     end
   end
+
+  Badge.setters Badginator.configuration.badge_fields
 end

@@ -1,7 +1,7 @@
 class Badginator
   class Badge
 
-    def self.setters(*method_names)
+    def self.setters(method_names)
       method_names.each do |name|
         send :define_method, name do |*data|
           if data.length > 0
@@ -25,8 +25,6 @@ class Badginator
         end
       end
     end
-
-    setters Badginator.configuration.badge_fields
 
     def build_badge(&block)
       instance_eval &block
