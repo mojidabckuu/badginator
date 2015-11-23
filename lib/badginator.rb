@@ -13,6 +13,7 @@ class Badginator
     attr_accessor :badge_fields
     attr_accessor :fallback_image_name
     attr_accessor :fallback_image_ext
+    attr_accessor :fallback_image_proc
 
     def initialize
       @default_badge_image = 'assets/badges/default.png'
@@ -20,6 +21,7 @@ class Badginator
       @fallback_image_name = false
       @badges_image_prefix = nil
       @fallback_image_ext = 'png'
+      @fallback_image_proc = nil
     end
   end
 
