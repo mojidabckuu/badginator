@@ -19,10 +19,12 @@ class Badginator
                   return value
                 else
                   if Badginator.configuration.fallback_image_name
-                    if Badginator.configuration.badges_image_prefix
-                      return "#{Badginator.configuration.badges_image_prefix}/#{self.code}"
+                    image_prefix = Badginator.configuration.badges_image_prefix
+                    if image_prefix
+                      extension = Badginator.configuration.fallback_image_ext
+                      return "#{image_prefix}/#{self.code}.#{extension}"
                     end
-                    return "#{self.code}"
+                    return "#{self.code}.#{extension}"
                   end
                 end
                 return Badginator.configuration.default_badge_image
