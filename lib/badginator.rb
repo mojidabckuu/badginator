@@ -16,6 +16,8 @@ class Badginator
     def initialize
       @default_badge_image = 'assets/badges/default.png'
       @badge_fields = :code, :name, :title, :description, :condition, :disabled, :levels, :image, :reward, :category
+      @fallback_image_name = false
+      @badges_image_prefix = nil
     end
   end
 
