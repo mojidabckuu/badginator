@@ -5,11 +5,11 @@ require 'badginator/version'
 Gem::Specification.new do |spec|
   spec.name          = "badginator"
   spec.version       = Badginator::VERSION
-  spec.authors       = ["Steven Hilton"]
-  spec.email         = ["mshiltonj@gmail.com"]
+  spec.authors       = ["Vlad Gorbenko", "Steven Hilton"]
+  spec.email         = ["mojidabckuu.22.06.92@gmail.com"]
   spec.description   = %q{Add "badges" to any Rails model.}
   spec.summary       = %q{Badginator is a gem to add "badges" (or "trophies" or "achievements") to any model of a Rails application, like User or Player. Useful for game-oriented applications.}
-  spec.homepage      = "https://github.com/mshiltonj/badginator"
+  spec.homepage      = "https://github.com/mojidabckuu/badginator"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

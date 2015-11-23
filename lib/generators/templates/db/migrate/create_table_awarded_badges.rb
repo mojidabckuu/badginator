@@ -4,6 +4,7 @@ class CreateTableAwardedBadges < ActiveRecord::Migration
       t.integer :awardee_id  
       t.string  :awardee_type  
       t.string  :badge_code
+      t.integer :level
       t.timestamps
     end
 

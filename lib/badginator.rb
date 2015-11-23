@@ -7,10 +7,35 @@ require "badginator/nominee"
 class Badginator
   include Singleton
 
+  class Configuration
+    attr_accessor :default_badge_image
+    attr_accessor :badges_image_prefix
+
+    def initialize
+      @default_badge_image = 'assets/badges/default.png'
+    end
+  end
+
   DID_NOT_WIN = 1
   WON         = 2
   ALREADY_WON = 3
   ERROR       = 4
+
+  class << self
+    attr_writer :configuration
+  end
+
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
+
+  def self.configure
+    yield(configuration)
+  end
+
+  def self.reset
+    @configuration = Configuration.new
+  end
 
   def initialize
     @badges = {}
