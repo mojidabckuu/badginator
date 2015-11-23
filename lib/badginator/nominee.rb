@@ -13,7 +13,7 @@ class Badginator
       success =  badge.condition.call(self, context)
 
       if success
-        if (self.has_badge?(badge_name))
+        if self.has_badge?(badge_name)
           status = Badginator::Status(Badginator::ALREADY_WON)
         else
           awarded_badge = AwardedBadge.create! awardee: self, badge_code: badge.code
