@@ -10,9 +10,11 @@ class Badginator
   class Configuration
     attr_accessor :default_badge_image
     attr_accessor :badges_image_prefix
+    attr_accessor :badge_fields
 
     def initialize
       @default_badge_image = 'assets/badges/default.png'
+      @badge_fields = :code, :name, :title, :description, :condition, :disabled, :levels, :image, :reward, :category
     end
   end
 
