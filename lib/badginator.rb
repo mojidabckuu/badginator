@@ -11,6 +11,7 @@ class Badginator
     attr_accessor :default_badge_image
     attr_accessor :badges_image_prefix
     attr_accessor :badge_fields
+    attr_accessor :fallback_image_name
 
     def initialize
       @default_badge_image = 'assets/badges/default.png'
