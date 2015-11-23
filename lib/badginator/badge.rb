@@ -19,7 +19,7 @@ class Badginator
                   return value
                 else
                   if Badginator.configuation.fallback_image_proc
-                    return Badginator.configuation.fallback_image_proc(self)
+                    return Badginator.configuation.fallback_image_proc.call(self)
                   end
                   if Badginator.configuration.fallback_image_name
                     image_prefix = Badginator.configuration.badges_image_prefix
