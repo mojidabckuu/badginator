@@ -8,7 +8,6 @@ class CreateTableAwardedBadges < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :awarded_badges, [:awardee_id, :awardee_type, :badge_code], 
-              unique: true, name: "awarded_badges_awardee_badge_index"
+    add_index :awarded_badges, [:awardee_id, :awardee_type, :badge_code, :level], name: 'strong_badge', :unique => true
   end
 end

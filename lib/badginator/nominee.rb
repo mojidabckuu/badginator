@@ -7,27 +7,38 @@ class Badginator
       }
     end
 
+    def try_award_badges(context)
+      statuses = []
+      Badginator.badges.each { |badge|
+        status = self.try_award_badge(badge.name, context)
+        if status.code == Badginator::WON
+          statuses << status
+        end
+      }
+      statuses
+    end
+
     def try_award_badge(badge_name, context = {})
       badge = Badginator.get_badge(badge_name)
-
-      success =  badge.condition.call(self, context)
-
-      if success
-        if self.has_badge?(badge_name)
-          status = Badginator::Status(Badginator::ALREADY_WON)
+      success = badge.condition.call(self, context)
+      status = nil
+      case success
+        when -1
+          status = Badginator::Status(Badginator::DID_NOT_WIN)
         else
-          awarded_badge = AwardedBadge.create! awardee: self, badge_code: badge.code
-          status = Badginator::Status(Badginator::WON, awarded_badge)
-        end
-      else
-        status = Badginator::Status(Badginator::DID_NOT_WIN)
+          if self.has_badge?(badge_name, success)
+            status = Badginator::Status(Badginator::ALREADY_WON)
+          else
+            awarded_badge = AwardedBadge.create! awardee: self, badge_code: badge.code, level: success
+            status = Badginator::Status(Badginator::WON, awarded_badge)
+          end
       end
 
       status
     end
 
-    def has_badge?(badge_code)
-      AwardedBadge.where(badge_code: badge_code, awardee: self).first
+    def has_badge?(badge_code, level)
+      AwardedBadge.where(badge_code: badge_code, level: level, awardee: self).first
     end
   end
 end
