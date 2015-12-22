@@ -10,7 +10,7 @@ class Badginator
     def try_award_badges(context)
       statuses = []
       Badginator.badges.each { |badge|
-        status = self.try_award_badge(badge.name, context)
+        status = self.try_award_badge(badge.code, context)
         if status.code == Badginator::WON
           statuses << status
         end
