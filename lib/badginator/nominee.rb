@@ -3,11 +3,15 @@ class Badginator
 
     def self.included(base)
       base.class_eval {
-        has_many :badges, class_name: "AwardedBadge", as: :awardee
+        # has_many :badges, class_name: "AwardedBadge", as: :awardee, :group => 'level'
+        # has_many :badges, class_name: "AwardedBadge", as: :awardee, :finder_sql => lambda{ "SELECT id, awardee_id, awardee_type, badge_code, MAX(level) as level FROM messages WHERE awardee_id=#{id} AND awardee_type = #{self}" }
+        def badges
+          AwardedBadge.select('awardee_id, badge_code, MAX(level) as level').where("awardee_type = '#{self.class}'").group('awardee_id, badge_code')
+        end
       }
     end
 
-    def try_award_badges(context)
+    def try_award_badges(context = {})
       statuses = []
       Badginator.badges.each { |badge|
         status = self.try_award_badge(badge.code, context)
@@ -20,16 +24,16 @@ class Badginator
 
     def try_award_badge(badge_name, context = {})
       badge = Badginator.get_badge(badge_name)
-      success = badge.condition.call(self, context)
+      success = badge.condition != nil ? badge.condition.call(self, context) : nil
       status = nil
       case success
-        when -1
+        when nil
           status = Badginator::Status(Badginator::DID_NOT_WIN)
         else
           if self.has_badge?(badge_name, success)
             status = Badginator::Status(Badginator::ALREADY_WON)
           else
-            awarded_badge = AwardedBadge.create! awardee: self, badge_code: badge.code, level: success
+            awarded_badge = AwardedBadge.create awardee: self, badge_code: badge.code, level: success
             status = Badginator::Status(Badginator::WON, awarded_badge)
           end
       end
