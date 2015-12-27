@@ -6,7 +6,7 @@ class Badginator
         # has_many :badges, class_name: "AwardedBadge", as: :awardee, :group => 'level'
         # has_many :badges, class_name: "AwardedBadge", as: :awardee, :finder_sql => lambda{ "SELECT id, awardee_id, awardee_type, badge_code, MAX(level) as level FROM messages WHERE awardee_id=#{id} AND awardee_type = #{self}" }
         def badges
-          AwardedBadge.select('awardee_id, badge_code, MAX(level) as level').where("awardee_type = '#{self.class}'").group('awardee_id, badge_code')
+          AwardedBadge.select('awardee_id, badge_code, MAX(level) as level').where("awardee_id = #{id} AND awardee_type = '#{self.class}'").group('awardee_id, badge_code')
         end
       }
     end
