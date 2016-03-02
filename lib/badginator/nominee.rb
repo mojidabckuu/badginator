@@ -23,14 +23,14 @@ class Badginator
     def try_award_badge(badge_name, context = {})
       badge = Badginator.get_badge(badge_name)
       level = badge.condition.present? ? badge.condition.call(self, context) : nil
-      status_from level, badge
+      status_from level, badge, context
     end
 
     def has_badge?(badge_code, level)
       AwardedBadge.find_by(badge_code: badge_code, level: level, awardee: self)
     end
 
-    def status_from(level, badge)
+    def status_from(level, badge, context)
       case level
         when nil
           Badginator::Status(Badginator::DID_NOT_WIN)
