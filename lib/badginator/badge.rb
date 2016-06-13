@@ -1,6 +1,8 @@
 class Badginator
   class Badge
 
+    attr_accessor :awarded_badge
+
     def self.setters(method_names)
       method_names.each do |name|
         send :define_method, name do |*data|
